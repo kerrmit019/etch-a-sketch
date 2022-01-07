@@ -12,3 +12,5 @@ for (i = 0; i < 16; i++) {
     gridContainer.appendChild(square);
   }
 }
+
+// TODO Add event listeners to change colour of grid divs when hover over them
