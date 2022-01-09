@@ -30,4 +30,5 @@ h1 {
 footer {
   display: flex;
   flex-shrink: 0;
+  padding: 20px;
 }
