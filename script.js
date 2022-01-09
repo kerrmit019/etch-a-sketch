@@ -1,20 +1,27 @@
 const gridContainer = document.querySelector(".grid-container");
 
-// draw 16 squares
-for (i = 0; i < 16; i++) {
-  for (j = 0; j < 16; j++) {
-    const square = document.createElement("div");
-    square.setAttribute(
-      "style",
-      "border: 1px solid blue; height: 20px; width: 20px"
-    );
-    // square.textContent = (i + 1) * (j + 1);
+function drawGrid(numberOfSquaresPerSide) {
+  for (i = 0; i < numberOfSquaresPerSide; i++) {
+    for (j = 0; j < numberOfSquaresPerSide; j++) {
+      let squareLength = 360 / numberOfSquaresPerSide;
 
-    // add event listener for pointerenter to turn blue when mouse enters square
-    square.addEventListener("pointerenter", (e) => {
-      //   console.log(e.target);
-      e.target.style["background-color"] = "blue";
-    });
-    gridContainer.appendChild(square);
+      const square = document.createElement("div");
+      square.setAttribute(
+        "style",
+        `height: ${squareLength}px; width: ${squareLength}px`
+      );
+      // square.textContent = (i + 1) * (j + 1);
+
+      // add event listener for pointerenter to turn blue when mouse enters square
+      square.addEventListener("pointerenter", (e) => {
+        //   console.log(e.target);
+        e.target.style["background-color"] = "blue";
+      });
+      gridContainer.appendChild(square);
+    }
   }
 }
+
+// draw grid of 16x16
+// drawGrid(16);
+drawGrid(64);
