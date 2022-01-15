@@ -6,7 +6,7 @@ const colorPicker = document.querySelector("#colorChoice");
 
 const numberOfSquaresPerSide = 16;
 
-colorPicker.addEventListener("change", (e) => setDrawingColor(e.target.value));
+colorPicker.addEventListener("input", (e) => setDrawingColor(e.target.value));
 
 // set up grid of n X n squares
 function drawGrid(numberOfSquaresPerSide) {
@@ -51,7 +51,8 @@ function setDrawingColor(color) {
   });
 }
 
-function updateColor() {
+// TODO implement rainbow function
+function rainbowColor() {
   setDrawingColor("black");
 }
 
@@ -63,4 +64,4 @@ resetButton.addEventListener("click", resetGrid);
 
 eraserButton.addEventListener("click", erase);
 
-rainbowButton.addEventListener("click", updateColor);
+rainbowButton.addEventListener("click", rainbowColor);
