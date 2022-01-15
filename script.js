@@ -69,3 +69,6 @@ eraserButton.addEventListener("click", erase);
 rainbowButton.addEventListener("click", rainbowColor);
 
 colorPicker.addEventListener("input", (e) => setDrawingColor(e.target.value));
+
+// TODO Set active styling for buttons
+// TODO Set selector for choosing number of squares per side
