@@ -1,6 +1,20 @@
 const gridContainer = document.querySelector(".grid-container");
 const resetButton = document.querySelector(".reset-button");
+const eraserButton = document.querySelector(".eraser-button");
+
+let eraser = false;
+
 const numberOfSquaresPerSide = 16;
+
+eraserButton.addEventListener("click", (e) => {
+  const squares = document.querySelectorAll(".square");
+  squares.forEach((square) =>
+    square.addEventListener("pointerenter", (e) => {
+      //   console.log(e.target);
+      e.target.style["background-color"] = "white";
+    })
+  );
+});
 
 // set up grid of n X n squares
 function drawGrid(numberOfSquaresPerSide) {
@@ -16,10 +30,10 @@ function drawGrid(numberOfSquaresPerSide) {
       square.classList.add("square");
       // square.textContent = (i + 1) * (j + 1);
 
-      // add event listener for pointerenter to turn blue when mouse enters square
+      // add event listener for pointerenter to turn black when mouse enters square
       square.addEventListener("pointerenter", (e) => {
         //   console.log(e.target);
-        e.target.style["background-color"] = "blue";
+        e.target.style["background-color"] = "black";
       });
       gridContainer.appendChild(square);
     }
