@@ -1,20 +1,12 @@
 const gridContainer = document.querySelector(".grid-container");
 const resetButton = document.querySelector(".reset-button");
 const eraserButton = document.querySelector(".eraser-button");
-
-let eraser = false;
+const rainbowButton = document.querySelector(".rainbow-button");
+const colorPicker = document.querySelector("#colorChoice");
 
 const numberOfSquaresPerSide = 16;
 
-eraserButton.addEventListener("click", (e) => {
-  const squares = document.querySelectorAll(".square");
-  squares.forEach((square) =>
-    square.addEventListener("pointerenter", (e) => {
-      //   console.log(e.target);
-      e.target.style["background-color"] = "white";
-    })
-  );
-});
+colorPicker.addEventListener("change", (e) => setDrawingColor(e.target.value));
 
 // set up grid of n X n squares
 function drawGrid(numberOfSquaresPerSide) {
@@ -31,13 +23,14 @@ function drawGrid(numberOfSquaresPerSide) {
       // square.textContent = (i + 1) * (j + 1);
 
       // add event listener for pointerenter to turn black when mouse enters square
-      square.addEventListener("pointerenter", (e) => {
-        //   console.log(e.target);
-        e.target.style["background-color"] = "black";
-      });
+      setDrawingColor("black");
       gridContainer.appendChild(square);
     }
   }
+}
+
+function erase() {
+  setDrawingColor("white");
 }
 
 // clears the grid of coloured squares - turns all squares to white
@@ -48,8 +41,26 @@ function resetGrid() {
   squares.forEach((square) => (square.style["background-color"] = "white"));
 }
 
+function setDrawingColor(color) {
+  const squares = document.querySelectorAll(".square");
+  squares.forEach((square) => {
+    square.addEventListener("pointerenter", (e) => {
+      //   console.log(e.target);
+      e.target.style["background-color"] = color;
+    });
+  });
+}
+
+function updateColor() {
+  setDrawingColor("black");
+}
+
 // draw grid of 16x16
 // drawGrid(16);
 drawGrid(numberOfSquaresPerSide);
 
 resetButton.addEventListener("click", resetGrid);
+
+eraserButton.addEventListener("click", erase);
+
+rainbowButton.addEventListener("click", updateColor);
