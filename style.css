@@ -26,6 +26,23 @@ main {
   margin-right: 25px;
 }
 
+.side-buttons #colorChoice {
+  width: 5rem;
+  height: 3rem;
+  border: 0;
+  padding: 0;
+  background: none;
+  size: 5rem;
+  margin: 10px;
+  align-self: center;
+}
+
+/* set border only on the colour picker swatch not the box around the colour picker */
+input[type="color"]::-webkit-color-swatch {
+  border: 2px solid;
+  border-radius: 4px;
+}
+
 .side-buttons button {
   margin: 10px;
   font-family: monospace;
