@@ -6,8 +6,6 @@ const colorPicker = document.querySelector("#colorChoice");
 
 const numberOfSquaresPerSide = 16;
 
-colorPicker.addEventListener("input", (e) => setDrawingColor(e.target.value));
-
 // set up grid of n X n squares
 function drawGrid(numberOfSquaresPerSide) {
   for (i = 0; i < numberOfSquaresPerSide; i++) {
@@ -34,11 +32,15 @@ function erase() {
 }
 
 // clears the grid of coloured squares - turns all squares to white
+// resest colour to black
 function resetGrid() {
   // select all squares.
   const squares = document.querySelectorAll(".square");
   // change each square colour to white to reset
   squares.forEach((square) => (square.style["background-color"] = "white"));
+  //   reset drawing colour to black
+  setDrawingColor("black");
+  colorPicker.value = "#000000";
 }
 
 function setDrawingColor(color) {
@@ -65,3 +67,5 @@ resetButton.addEventListener("click", resetGrid);
 eraserButton.addEventListener("click", erase);
 
 rainbowButton.addEventListener("click", rainbowColor);
+
+colorPicker.addEventListener("input", (e) => setDrawingColor(e.target.value));
