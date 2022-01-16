@@ -2,6 +2,7 @@ const gridContainer = document.querySelector(".grid-container");
 const resetButton = document.querySelector(".reset-button");
 const eraserButton = document.querySelector(".eraser-button");
 const rainbowButton = document.querySelector(".rainbow-button");
+const randomButton = document.querySelector(".random-button");
 const colorPicker = document.querySelector("#colorChoice");
 
 const numberOfSquaresPerSide = 16;
@@ -15,19 +16,29 @@ function setButtonStatus(button) {
   switch (button) {
     case "colorPicker":
       rainbowButton.style["background-color"] = "";
+      randomButton.style["background-color"] = "";
+      eraserButton.style["background-color"] = "";
+      break;
+    case "random":
+      randomButton.style["background-color"] = "#6c757d";
+      rainbowButton.style["background-color"] = "";
       eraserButton.style["background-color"] = "";
       break;
     case "rainbow":
       rainbowButton.style["background-color"] = "#6c757d";
       eraserButton.style["background-color"] = "";
+      randomButton.style["background-color"] = "";
       break;
     case "eraser":
       eraserButton.style["background-color"] = "#6c757d";
       rainbowButton.style["background-color"] = "";
+
+      randomButton.style["background-color"] = "";
       break;
     case "reset":
       rainbowButton.style["background-color"] = "";
       eraserButton.style["background-color"] = "";
+      randomButton.style["background-color"] = "";
       break;
   }
 }
@@ -72,6 +83,10 @@ function resetGrid() {
 }
 
 function setDrawingColor(color) {
+  if (color === "random") {
+    color = "#" + (Math.random() * 0xfffff * 1000000).toString(16).slice(0, 6);
+    colorPicker.value = color;
+  }
   const squares = document.querySelectorAll(".square");
   squares.forEach((square) => {
     square.addEventListener("pointerenter", (e) => {
@@ -85,6 +100,11 @@ function setDrawingColor(color) {
 function rainbowColor() {
   setButtonStatus("rainbow");
 }
+function randomColor() {
+  setDrawingColor("random");
+
+  setButtonStatus("random");
+}
 
 // draw grid of 16x16
 // drawGrid(16);
@@ -96,6 +116,7 @@ eraserButton.addEventListener("click", erase);
 
 rainbowButton.addEventListener("click", rainbowColor);
 
+randomButton.addEventListener("click", randomColor);
 colorPicker.addEventListener("input", chooseColor);
 
 // TODO Set selector for choosing number of squares per side
