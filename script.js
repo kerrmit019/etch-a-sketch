@@ -6,6 +6,32 @@ const colorPicker = document.querySelector("#colorChoice");
 
 const numberOfSquaresPerSide = 16;
 
+function chooseColor(e) {
+  setDrawingColor(e.target.value);
+  setButtonStatus("colorPicker");
+}
+
+function setButtonStatus(button) {
+  switch (button) {
+    case "colorPicker":
+      rainbowButton.style["background-color"] = "";
+      eraserButton.style["background-color"] = "";
+      break;
+    case "rainbow":
+      rainbowButton.style["background-color"] = "#6c757d";
+      eraserButton.style["background-color"] = "";
+      break;
+    case "eraser":
+      eraserButton.style["background-color"] = "#6c757d";
+      rainbowButton.style["background-color"] = "";
+      break;
+    case "reset":
+      rainbowButton.style["background-color"] = "";
+      eraserButton.style["background-color"] = "";
+      break;
+  }
+}
+
 // set up grid of n X n squares
 function drawGrid(numberOfSquaresPerSide) {
   for (i = 0; i < numberOfSquaresPerSide; i++) {
@@ -29,6 +55,7 @@ function drawGrid(numberOfSquaresPerSide) {
 
 function erase() {
   setDrawingColor("white");
+  setButtonStatus("eraser");
 }
 
 // clears the grid of coloured squares - turns all squares to white
@@ -41,6 +68,7 @@ function resetGrid() {
   //   reset drawing colour to black
   setDrawingColor("black");
   colorPicker.value = "#000000";
+  setButtonStatus("reset");
 }
 
 function setDrawingColor(color) {
@@ -55,7 +83,7 @@ function setDrawingColor(color) {
 
 // TODO implement rainbow function
 function rainbowColor() {
-  setDrawingColor("black");
+  setButtonStatus("rainbow");
 }
 
 // draw grid of 16x16
@@ -68,7 +96,6 @@ eraserButton.addEventListener("click", erase);
 
 rainbowButton.addEventListener("click", rainbowColor);
 
-colorPicker.addEventListener("input", (e) => setDrawingColor(e.target.value));
+colorPicker.addEventListener("input", chooseColor);
 
-// TODO Set active styling for buttons
 // TODO Set selector for choosing number of squares per side
