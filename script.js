@@ -82,24 +82,33 @@ function resetGrid() {
   setButtonStatus("reset");
 }
 
+function generateRandomHexCode() {
+  return "#" + (Math.random() * 0xfffff * 1000000).toString(16).slice(0, 6);
+}
+
 function setDrawingColor(color) {
   if (color === "random") {
-    color = "#" + (Math.random() * 0xfffff * 1000000).toString(16).slice(0, 6);
+    color = generateRandomHexCode();
     colorPicker.value = color;
   }
   const squares = document.querySelectorAll(".square");
   squares.forEach((square) => {
     square.addEventListener("pointerenter", (e) => {
       //   console.log(e.target);
-      e.target.style["background-color"] = color;
+      if (color === "rainbow") {
+        e.target.style["background-color"] = generateRandomHexCode();
+      } else {
+        e.target.style["background-color"] = color;
+      }
     });
   });
 }
 
-// TODO implement rainbow function
 function rainbowColor() {
+  setDrawingColor("rainbow");
   setButtonStatus("rainbow");
 }
+
 function randomColor() {
   setDrawingColor("random");
 
