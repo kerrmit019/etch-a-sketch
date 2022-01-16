@@ -4,6 +4,7 @@ const eraserButton = document.querySelector(".eraser-button");
 const rainbowButton = document.querySelector(".rainbow-button");
 const randomButton = document.querySelector(".random-button");
 const colorPicker = document.querySelector("#colorChoice");
+const greyscaleShaderButton = document.querySelector(".greyscale-button");
 
 const numberOfSquaresPerSide = 16;
 
@@ -18,14 +19,23 @@ function setButtonStatus(button) {
       rainbowButton.style["background-color"] = "";
       randomButton.style["background-color"] = "";
       eraserButton.style["background-color"] = "";
+      greyscaleShaderButton.style["background-color"] = "";
       break;
     case "random":
       randomButton.style["background-color"] = "#6c757d";
       rainbowButton.style["background-color"] = "";
       eraserButton.style["background-color"] = "";
+      greyscaleShaderButton.style["background-color"] = "";
       break;
     case "rainbow":
       rainbowButton.style["background-color"] = "#6c757d";
+      eraserButton.style["background-color"] = "";
+      randomButton.style["background-color"] = "";
+      greyscaleShaderButton.style["background-color"] = "";
+      break;
+    case "greyscale":
+      greyscaleShaderButton.style["background-color"] = "#6c757d";
+      rainbowButton.style["background-color"] = "";
       eraserButton.style["background-color"] = "";
       randomButton.style["background-color"] = "";
       break;
@@ -33,9 +43,11 @@ function setButtonStatus(button) {
       eraserButton.style["background-color"] = "#6c757d";
       rainbowButton.style["background-color"] = "";
 
+      greyscaleShaderButton.style["background-color"] = "";
       randomButton.style["background-color"] = "";
       break;
     case "reset":
+      greyscaleShaderButton.style["background-color"] = "";
       rainbowButton.style["background-color"] = "";
       eraserButton.style["background-color"] = "";
       randomButton.style["background-color"] = "";
@@ -115,6 +127,10 @@ function randomColor() {
   setButtonStatus("random");
 }
 
+function greyscaleShader() {
+  setButtonStatus("greyscale");
+}
+
 // draw grid of 16x16
 // drawGrid(16);
 drawGrid(numberOfSquaresPerSide);
@@ -125,7 +141,10 @@ eraserButton.addEventListener("click", erase);
 
 rainbowButton.addEventListener("click", rainbowColor);
 
+greyscaleShaderButton.addEventListener("click", greyscaleShader);
+
 randomButton.addEventListener("click", randomColor);
 colorPicker.addEventListener("input", chooseColor);
 
 // TODO Set selector for choosing number of squares per side
+// TODO Create greyscale shader
