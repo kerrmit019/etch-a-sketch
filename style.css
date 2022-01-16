@@ -37,6 +37,10 @@ main {
   align-self: center;
 }
 
+.side-buttons label {
+  align-self: center;
+}
+
 /* set border only on the colour picker swatch not the box around the colour picker */
 input[type="color"]::-webkit-color-swatch {
   border: 2px solid;
@@ -64,7 +68,7 @@ input[type="color"]::-webkit-color-swatch {
   justify-content: center;
   border: 3px solid black;
   width: 360px;
-  width: 360px;
+  height: 360px;
 }
 
 footer {
