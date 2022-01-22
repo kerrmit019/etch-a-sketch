@@ -146,5 +146,9 @@ greyscaleShaderButton.addEventListener("click", greyscaleShader);
 randomButton.addEventListener("click", randomColor);
 colorPicker.addEventListener("input", chooseColor);
 
-// TODO Set selector for choosing number of squares per side
+// TODO refactor so not calling so many const add event lsiteners for each square
+//  and refactor so that that calls a callback not arrow function
+//  and then can implement greyscale easier as need to remove previous event listeners
+//  for it to work
 // TODO Create greyscale shader
+// TODO Set selector for choosing number of squares per side
