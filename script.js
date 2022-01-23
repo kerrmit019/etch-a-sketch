@@ -12,6 +12,7 @@ let mode = "noGreyscale";
 
 function chooseColor(e) {
   color = e.target.value;
+  mode = "noGreyScale";
   squaresAddEventListeners();
   setButtonStatus("colorPicker");
 }
@@ -67,8 +68,9 @@ function drawGrid(numberOfSquaresPerSide) {
       const square = document.createElement("div");
       square.setAttribute(
         "style",
-        `height: ${squareLength}px; width: ${squareLength}px`
+        `height: ${squareLength}px; width: ${squareLength}px;`
       );
+      square.style["background-color"] = "white";
       square.classList.add("square");
       // square.textContent = (i + 1) * (j + 1);
 
@@ -82,6 +84,7 @@ function drawGrid(numberOfSquaresPerSide) {
 function erase() {
   squaresRemoveEventListeners();
   color = "white";
+  mode = "noGreyscale";
   squaresAddEventListeners();
   setButtonStatus("eraser");
 }
@@ -97,6 +100,7 @@ function resetGrid() {
   //   reset drawing colour to black
   color = "black";
   colorPicker.value = "#000000";
+  mode = "noGreyscale";
   squaresAddEventListeners();
   setButtonStatus("reset");
 }
@@ -106,11 +110,18 @@ function generateRandomHexCode() {
 }
 
 function setDrawingColor(e) {
+  // check for greyscale
+  if (mode === "greyscale") {
+    console.log(color);
+    e.target.style["filter"] = "brightness(80%)";
+    return;
+  } else {
+    e.target.style["filter"] = "";
+  }
+
   if (color === "rainbow") {
     e.target.style["background-color"] = generateRandomHexCode();
     // console.log(e.target.style["background-color"]);
-    // } else if (color === "greyscale") {
-    //   e.target.style["filter"] = "grayscale(50%)";
   } else {
     e.target.style["background-color"] = color;
   }
@@ -135,6 +146,7 @@ function squaresRemoveEventListeners() {
 function rainbowColor() {
   squaresRemoveEventListeners();
   color = "rainbow";
+  mode = "noGreyscale";
   squaresAddEventListeners();
   setButtonStatus("rainbow");
 }
@@ -144,7 +156,7 @@ function randomColor() {
   setButtonStatus("random");
   color = generateRandomHexCode();
   colorPicker.value = color;
-
+  mode = "noGreyscale";
   squaresAddEventListeners();
 }
 
