@@ -9,6 +9,7 @@ const greyscaleShaderButton = document.querySelector(".greyscale-button");
 const numberOfSquaresPerSide = 16;
 let color = "black";
 let mode = "noGreyscale";
+let brightness = 1;
 
 function chooseColor(e) {
   color = e.target.value;
@@ -68,9 +69,8 @@ function drawGrid(numberOfSquaresPerSide) {
       const square = document.createElement("div");
       square.setAttribute(
         "style",
-        `height: ${squareLength}px; width: ${squareLength}px;`
+        `height: ${squareLength}px; width: ${squareLength}px; background-color: white; filter: brightness(1);`
       );
-      square.style["background-color"] = "white";
       square.classList.add("square");
       // square.textContent = (i + 1) * (j + 1);
 
@@ -96,7 +96,8 @@ function resetGrid() {
   const squares = document.querySelectorAll(".square");
   // change each square colour to white to reset
   squares.forEach((square) => (square.style["background-color"] = "white"));
-  squaresRemoveEventListeners;
+  squares.forEach((square) => (square.style["filter"] = "brightness(1)"));
+  squaresRemoveEventListeners();
   //   reset drawing colour to black
   color = "black";
   colorPicker.value = "#000000";
@@ -112,13 +113,20 @@ function generateRandomHexCode() {
 function setDrawingColor(e) {
   // check for greyscale
   if (mode === "greyscale") {
-    console.log(color);
-    e.target.style["filter"] = "brightness(80%)";
+    // console.log(e.target.style["filter"].split(/[a-z()]+/)[1]);
+    // read off current brightness of square
+    brightness = e.target.style["filter"].split(/[a-z()]+/)[1];
+    // decrease brightness by 10 percent to darken
+    brightness *= 0.9;
+    console.log(brightness);
+    e.target.style["filter"] = `brightness(${brightness})`;
     return;
   } else {
-    e.target.style["filter"] = "";
+    brightness = 1;
+    e.target.style["filter"] = `brightness(${brightness})`;
   }
 
+  // check colours
   if (color === "rainbow") {
     e.target.style["background-color"] = generateRandomHexCode();
     // console.log(e.target.style["background-color"]);
@@ -182,5 +190,4 @@ greyscaleShaderButton.addEventListener("click", greyscaleShader);
 randomButton.addEventListener("click", randomColor);
 colorPicker.addEventListener("input", chooseColor);
 
-// TODO Create greyscale shader
 // TODO Set selector for choosing number of squares per side
