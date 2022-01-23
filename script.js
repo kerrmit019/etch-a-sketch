@@ -7,9 +7,12 @@ const colorPicker = document.querySelector("#colorChoice");
 const greyscaleShaderButton = document.querySelector(".greyscale-button");
 
 const numberOfSquaresPerSide = 16;
+let color = "black";
+let mode = "noGreyscale";
 
 function chooseColor(e) {
-  setDrawingColor(e.target.value);
+  color = e.target.value;
+  squaresAddEventListeners();
   setButtonStatus("colorPicker");
 }
 
@@ -70,14 +73,16 @@ function drawGrid(numberOfSquaresPerSide) {
       // square.textContent = (i + 1) * (j + 1);
 
       // add event listener for pointerenter to turn black when mouse enters square
-      setDrawingColor("black");
       gridContainer.appendChild(square);
     }
   }
+  squaresAddEventListeners();
 }
 
 function erase() {
-  setDrawingColor("white");
+  squaresRemoveEventListeners();
+  color = "white";
+  squaresAddEventListeners();
   setButtonStatus("eraser");
 }
 
@@ -88,9 +93,11 @@ function resetGrid() {
   const squares = document.querySelectorAll(".square");
   // change each square colour to white to reset
   squares.forEach((square) => (square.style["background-color"] = "white"));
+  squaresRemoveEventListeners;
   //   reset drawing colour to black
-  setDrawingColor("black");
+  color = "black";
   colorPicker.value = "#000000";
+  squaresAddEventListeners();
   setButtonStatus("reset");
 }
 
@@ -98,36 +105,53 @@ function generateRandomHexCode() {
   return "#" + (Math.random() * 0xfffff * 1000000).toString(16).slice(0, 6);
 }
 
-function setDrawingColor(color) {
-  if (color === "random") {
-    color = generateRandomHexCode();
-    colorPicker.value = color;
+function setDrawingColor(e) {
+  if (color === "rainbow") {
+    e.target.style["background-color"] = generateRandomHexCode();
+    // console.log(e.target.style["background-color"]);
+    // } else if (color === "greyscale") {
+    //   e.target.style["filter"] = "grayscale(50%)";
+  } else {
+    e.target.style["background-color"] = color;
   }
+}
+
+function squaresAddEventListeners() {
   const squares = document.querySelectorAll(".square");
-  squares.forEach((square) => {
-    square.addEventListener("pointerenter", (e) => {
-      //   console.log(e.target);
-      if (color === "rainbow") {
-        e.target.style["background-color"] = generateRandomHexCode();
-      } else {
-        e.target.style["background-color"] = color;
-      }
-    });
-  });
+  squares.forEach((square) =>
+    square.addEventListener("pointerenter", setDrawingColor)
+  );
+  console.log(`Add ${color}`);
+}
+
+function squaresRemoveEventListeners() {
+  const squares = document.querySelectorAll(".square");
+  squares.forEach((square) =>
+    square.removeEventListener("pointerenter", setDrawingColor)
+  );
+  console.log(`remove ${color}`);
 }
 
 function rainbowColor() {
-  setDrawingColor("rainbow");
+  squaresRemoveEventListeners();
+  color = "rainbow";
+  squaresAddEventListeners();
   setButtonStatus("rainbow");
 }
 
 function randomColor() {
-  setDrawingColor("random");
-
+  squaresRemoveEventListeners();
   setButtonStatus("random");
+  color = generateRandomHexCode();
+  colorPicker.value = color;
+
+  squaresAddEventListeners();
 }
 
 function greyscaleShader() {
+  squaresRemoveEventListeners();
+  mode = "greyscale";
+  squaresAddEventListeners();
   setButtonStatus("greyscale");
 }
 
@@ -146,9 +170,5 @@ greyscaleShaderButton.addEventListener("click", greyscaleShader);
 randomButton.addEventListener("click", randomColor);
 colorPicker.addEventListener("input", chooseColor);
 
-// TODO refactor so not calling so many const add event lsiteners for each square
-//  and refactor so that that calls a callback not arrow function
-//  and then can implement greyscale easier as need to remove previous event listeners
-//  for it to work
 // TODO Create greyscale shader
 // TODO Set selector for choosing number of squares per side
