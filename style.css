@@ -66,10 +66,12 @@ input[type="color"]::-webkit-color-swatch {
   padding: 10px 5px;
   border: solid 2px;
   border-radius: 5px;
+  cursor: pointer;
 }
 
-.side-buttons button:active {
-  background-color: #6c757d;
+/* .side-buttons button:active, */
+.side-buttons button:hover {
+  background-color: #adb5bd;
 }
 
 .grid-container {
@@ -81,6 +83,57 @@ input[type="color"]::-webkit-color-swatch {
   width: 360px;
   height: 360px;
   flex-shrink: 0;
+}
+
+.grid-and-slide-container {
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.slidecontainer {
+  width: 100%; /* Width of the outside container */
+  margin: 15px 0;
+}
+
+/* The slider itself */
+.slider {
+  -webkit-appearance: none; /* Override default CSS styles */
+  appearance: none;
+  width: 100%; /* Full-width */
+  height: 15px; /* Specified height */
+  background: #efefef; /* Grey background */
+  border: 1px solid;
+  border-radius: 5px;
+  outline: none; /* Remove outline */
+  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: 0.2s; /* 0.2 seconds transition on hover */
+  transition: opacity 0.2s;
+}
+
+/* Mouse-over effects */
+.slider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+  background: #adb5bd;
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  border-radius: 50%;
+  background: #212529;
+  cursor: pointer; /* Cursor on hover */
+}
+
+.slider::-moz-range-thumb {
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: #212529; /* Green background */
+  border-radius: 50%;
+  cursor: pointer; /* Cursor on hover */
 }
 
 footer {

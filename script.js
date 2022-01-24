@@ -6,6 +6,14 @@ const randomButton = document.querySelector(".random-button");
 const colorPicker = document.querySelector("#colorChoice");
 const greyscaleShaderButton = document.querySelector(".greyscale-button");
 
+const slider = document.getElementById("gridSizeSlider");
+const output = document.querySelector(".grid-name");
+output.innerText = `${slider.value} X ${slider.value} grid`; // Display the default slider value
+
+// Update the current slider value (each time you drag the slider handle)
+slider.oninput = function () {
+  output.innerText = `${slider.value} X ${slider.value} grid`; // Display the default slider value
+};
 const numberOfSquaresPerSide = 16;
 let color = "black";
 let greyscaleMode = "noGreyscale";
