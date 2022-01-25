@@ -7,13 +7,16 @@ const colorPicker = document.querySelector("#colorChoice");
 const greyscaleShaderButton = document.querySelector(".greyscale-button");
 
 const slider = document.getElementById("gridSizeSlider");
-const output = document.querySelector(".grid-name");
-output.innerText = `${slider.value} X ${slider.value} grid`; // Display the default slider value
+const sliderOutput = document.querySelector(".grid-name");
+sliderOutput.innerText = `${slider.value} X ${slider.value} grid`; // Display the default slider value
 
 // Update the current slider value (each time you drag the slider handle)
 slider.oninput = function () {
-  output.innerText = `${slider.value} X ${slider.value} grid`; // Display the default slider value
+  sliderOutput.innerText = `${slider.value} X ${slider.value} grid`; // Display the default slider value
+  clearGrid();
+  drawGrid(slider.value);
 };
+
 const numberOfSquaresPerSide = 16;
 let color = "black";
 let greyscaleMode = "noGreyscale";
@@ -26,6 +29,14 @@ function chooseColor(e) {
   greyscaleMode = "noGreyScale";
   squaresAddEventListeners();
   setButtonStatus("colorPicker");
+}
+
+// removes all .square divs
+function clearGrid() {
+  const squares = document.querySelectorAll(".square");
+  squares.forEach((square) => {
+    gridContainer.removeChild(square);
+  });
 }
 
 // set up grid of n X n squares
