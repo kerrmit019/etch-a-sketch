@@ -10,13 +10,15 @@ const slider = document.getElementById("gridSizeSlider");
 const sliderOutput = document.querySelector(".grid-name");
 sliderOutput.innerText = `${slider.value} X ${slider.value} grid`; // Display the default slider value
 
-// Update the current slider value (each time you drag the slider handle)
-slider.oninput = function () {
-  sliderOutput.innerText = `${slider.value} X ${slider.value} grid`; // Display the default slider value
-  clearGrid();
+// Update the current slider value (each time you drag the slider handle and rest)
+slider.onchange = function () {
   drawGrid(slider.value);
 };
 
+slider.oninput = function () {
+  clearGrid();
+  sliderOutput.innerText = `${slider.value} X ${slider.value} grid`; // Display the default slider value
+};
 const numberOfSquaresPerSide = 16;
 let color = "black";
 let greyscaleMode = "noGreyscale";
@@ -205,5 +207,3 @@ rainbowButton.addEventListener("click", rainbowColor);
 greyscaleShaderButton.addEventListener("click", greyscaleShader);
 randomButton.addEventListener("click", randomColor);
 colorPicker.addEventListener("input", chooseColor);
-
-// TODO Set selector for choosing number of squares per side
